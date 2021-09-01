@@ -12,8 +12,16 @@ const list: Employee[] = [
   },
 ];
 
-const insertOne = () => {
+const exists = (cpf: String) => {
+  return list.map((employee) => cpf === employee.cpf).includes(true);
+}
 
+const insertOne = (employee: Employee) => {
+  if (exists(employee.cpf)) {
+    return false;
+  }
+  list.push(employee);
+  return true
 }
 
 const deleteOne = () => {
