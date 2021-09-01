@@ -44,7 +44,24 @@ const deleteByCpf = (req: Request, res: Response) => {
 }
 
 const updateByCpf = (req: Request, res: Response) => {
-  return res.send('updateByCpf')
+  var { name, birth_date, gender, email, cpf, start_date, team } = req.body;
+
+  const isComplete = cpf !== undefined;
+  if (!isComplete) {
+    return res.sendStatus(400)
+  }
+
+  if (birth_date !== undefined) birth_date = new Date(birth_date);
+  if (start_date !== undefined) start_date = new Date(start_date);
+  if (gender !== undefined) gender = (gender === 0) ? 'male' : ((gender === 1) ? 'female' : 'other');
+
+  const isSuccessful = updateOne({ name, birth_date, gender, email, cpf, start_date, team });
+
+  if (isSuccessful) {
+    return res.sendStatus(200)
+  }
+
+  return res.sendStatus(404)
 }
 
 export { listEmployees, createNewEmployee, deleteByCpf, updateByCpf }

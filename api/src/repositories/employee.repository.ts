@@ -38,8 +38,22 @@ const deleteOne = (cpf: String) => {
   return removeIdxFromList(index);
 }
 
-const updateOne = () => {
+const updateOne = ({ name, birth_date, gender, email, cpf, start_date, team }: Employee) => {
+  const index = getEmployeeIndexByCpf(cpf);
+  if (index === -1) return false;
 
+  const employee = list[index];
+  list[index] = {
+    name: name || employee.name,
+    birth_date: birth_date || employee.birth_date,
+    gender: gender || employee.gender,
+    email: email || employee.email,
+    cpf: employee.cpf,
+    start_date: start_date || employee.start_date,
+    team: team || employee.team,
+  }
+
+  return true;
 }
 
 const getAll = () => {
