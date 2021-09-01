@@ -79,7 +79,6 @@ function EmployeesGrid() {
       fetchData();
       closeModal();
     } else {
-      console.log(status)
       alert(`Error: ${status === 404 ? 'Employee not found' : 'Please fill all fields'}`);
     }
   }
