@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { insertOne, deleteOne, updateOne, getAll } from '../repositories/employee.repository'
 
 const listEmployees = (req: Request, res: Response) => {
-  return res.send('listEmployees')
+  return res.send(getAll())
 }
 
 const createNewEmployee = (req: Request, res: Response) => {
