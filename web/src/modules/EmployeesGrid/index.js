@@ -1,16 +1,20 @@
 import './EmployeesGrid.css'
 import { useEffect, useState } from 'react'
 import Employee from '../EmployeeBox';
-import { getEmployeeList } from '../../services/employee.service'
+import Container from '../AddButtonContainer';
+import { getEmployeeList, createNewEmployee } from '../../services/employee.service'
 
 function EmployeesGrid() {
 
   const [employees, setEmployeesArray] = useState([])
 
-  useEffect(async () => {
+  const fetchData = async () => {
     const list = await getEmployeeList();
     setEmployeesArray(list);
-    console.log(list)
+  }
+
+  useEffect(() => {
+    fetchData();
   }, [])
 
   const renderEmployees = () => {
@@ -24,9 +28,30 @@ function EmployeesGrid() {
     />)
   }
 
+  const onSubmitNewUser = async (event, closeModal) => {
+    event.preventDefault(event);
+    var { name, birth_date, gender, email, cpf, start_date, team } = event.target;
+    const status = await createNewEmployee({
+      name: name.value,
+      birth_date: birth_date.value,
+      gender: gender.value,
+      email: email.value,
+      cpf: cpf.value || undefined,
+      start_date: start_date.value ? start_date.value + '-01' : undefined,
+      team: team.value
+    });
+    if (status === 201) {
+      fetchData();
+      closeModal();
+    } else {
+      alert(`Error: ${status === 304 ? 'Duplicated CPF' : 'Please fill all fields'}`);
+    }
+  }
+
   return (
     <div className="employees-grid">
       {renderEmployees()}
+      <Container onSubmit={onSubmitNewUser} />
     </div>
   );
 }

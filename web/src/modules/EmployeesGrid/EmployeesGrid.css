@@ -4,3 +4,17 @@
   align-items: center;
   justify-content: center;
 }
+
+.add-employee-button {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 15px;
+  border: 1px solid black;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 35px;
+  width: 50px;
+  height: 50px;
+  background: #2756B6;
+}

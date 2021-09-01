@@ -4,8 +4,8 @@ function Employee({ name, email, startDate, team, index }) {
 
   const formatDate = (date) => {
     const d = new Date(date);
-    const monthNames =["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep", "Oct","Nov","Dec"];
-    return `${monthNames[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${monthNames[d.getMonth()]}, ${d.getFullYear()}`
   }
 
   return (
@@ -14,7 +14,7 @@ function Employee({ name, email, startDate, team, index }) {
         <p className="name">{name}</p>
         <p>Email: {email}</p>
         <p>Start Date: {formatDate(startDate)}</p>
-        <p>Team: {team}</p>
+        {team ? <p>Team: {team}</p> : null}
       </div>
       <div className="employee-box-buttons">
         <button className="edit-button">

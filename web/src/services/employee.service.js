@@ -7,4 +7,15 @@ const getEmployeeList = async () => {
   return req.data || []
 }
 
-export { getEmployeeList }
+const createNewEmployee = async (employee) => {
+  var status = 0;
+  const req = await request.post(BASE_URL, { ...employee }).catch((error) => {
+    status = -1
+    if (error && error.response)
+      status = error.response.status
+  });
+  if (req && req.status) return req.status
+  return status
+}
+
+export { getEmployeeList, createNewEmployee }
