@@ -38,11 +38,11 @@ function EmployeesGrid() {
     var { name, birth_date, gender, email, cpf, start_date, team } = event.target;
     const status = await createNewEmployee({
       name: name.value,
-      birth_date: birth_date.value,
+      birth_date: birth_date.value ? new Date((new Date(birth_date.value)).getTime() + (1000*60*60*24)) : undefined,
       gender: gender.value,
       email: email.value,
       cpf: cpf.value || undefined,
-      start_date: start_date.value ? start_date.value + '-01' : undefined,
+      start_date: start_date.value ? new Date((new Date(start_date.value + '-01')).getTime() + (1000*60*60*24)) : undefined,
       team: team.value
     });
     if (status === 201) {
@@ -68,11 +68,11 @@ function EmployeesGrid() {
     var { name, birth_date, gender, email, cpf, start_date, team } = event.target;
     const status = await updateEmployee({
       name: name.value,
-      birth_date: birth_date.value,
+      birth_date: birth_date.value ? new Date((new Date(birth_date.value)).getTime() + (1000*60*60*24)) : undefined,
       gender: gender.value,
       email: email.value,
       cpf: cpf.value || undefined,
-      start_date: start_date.value ? start_date.value + '-01' : undefined,
+      start_date: start_date.value ? new Date((new Date(start_date.value + '-01')).getTime() + (1000*60*60*24)) : undefined,
       team: team.value || undefined
     });
     if (status === 200) {
