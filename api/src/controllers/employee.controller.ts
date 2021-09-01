@@ -27,7 +27,7 @@ const createNewEmployee = (req: Request, res: Response) => {
 }
 
 const deleteByCpf = (req: Request, res: Response) => {
-  var { cpf } = req.body;
+  var cpf:String = req.query.cpf+'';
 
   const isComplete = cpf !== undefined;
   if (!isComplete) {

@@ -2,7 +2,7 @@ import './EmployeesGrid.css'
 import { useEffect, useState } from 'react'
 import Employee from '../EmployeeBox';
 import Container from '../AddButtonContainer';
-import { getEmployeeList, createNewEmployee } from '../../services/employee.service'
+import { getEmployeeList, createNewEmployee, deleteEmployee } from '../../services/employee.service'
 
 function EmployeesGrid() {
 
@@ -25,6 +25,7 @@ function EmployeesGrid() {
       startDate={employee.start_date}
       team={employee.team}
       index={idx}
+      deleteEmployee={onDeleteEmployee}
     />)
   }
 
@@ -45,6 +46,16 @@ function EmployeesGrid() {
       closeModal();
     } else {
       alert(`Error: ${status === 304 ? 'Duplicated CPF' : 'Please fill all fields'}`);
+    }
+  }
+
+  const onDeleteEmployee = async (idx) => {
+    const status = await deleteEmployee(employees[idx].cpf);
+
+    if (status === 200) {
+      fetchData();
+    } else {
+      alert(`Error: ${status === 404 ? 'Employee not found!' : 'Bad Request'}`);
     }
   }
 

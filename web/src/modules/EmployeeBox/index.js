@@ -1,6 +1,6 @@
 import './Employee.css'
 
-function Employee({ name, email, startDate, team, index }) {
+function Employee({ name, email, startDate, team, index, deleteEmployee }) {
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -20,7 +20,7 @@ function Employee({ name, email, startDate, team, index }) {
         <button className="edit-button">
           Edit
         </button>
-        <button className="delete-button">
+        <button className="delete-button" onClick={() => {deleteEmployee(index)}}>
           Delete
         </button>
       </div>

@@ -18,4 +18,15 @@ const createNewEmployee = async (employee) => {
   return status
 }
 
-export { getEmployeeList, createNewEmployee }
+const deleteEmployee = async (cpf) => {
+  var status = 0;
+  const req = await request.delete(BASE_URL+'?cpf='+cpf).catch((error) => {
+    status = -1
+    if (error && error.response)
+      status = error.response.status
+  });
+  if (req && req.status) return req.status
+  return status
+}
+
+export { getEmployeeList, createNewEmployee, deleteEmployee }
