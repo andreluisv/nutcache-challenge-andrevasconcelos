@@ -20,7 +20,7 @@ const createNewEmployee = async (employee) => {
 
 const deleteEmployee = async (cpf) => {
   var status = 0;
-  const req = await request.delete(BASE_URL+'?cpf='+cpf).catch((error) => {
+  const req = await request.delete(BASE_URL + '?cpf=' + cpf).catch((error) => {
     status = -1
     if (error && error.response)
       status = error.response.status
@@ -29,4 +29,15 @@ const deleteEmployee = async (cpf) => {
   return status
 }
 
-export { getEmployeeList, createNewEmployee, deleteEmployee }
+const updateEmployee = async (employee) => {
+  var status = 0;
+  const req = await request.put(BASE_URL, { ...employee }).catch((error) => {
+    status = -1
+    if (error && error.response)
+      status = error.response.status
+  });
+  if (req && req.status) return req.status
+  return status
+}
+
+export { getEmployeeList, createNewEmployee, deleteEmployee, updateEmployee }

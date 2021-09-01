@@ -2,7 +2,7 @@ import './EmployeesGrid.css'
 import { useEffect, useState } from 'react'
 import Employee from '../EmployeeBox';
 import Container from '../AddButtonContainer';
-import { getEmployeeList, createNewEmployee, deleteEmployee } from '../../services/employee.service'
+import { getEmployeeList, createNewEmployee, deleteEmployee, updateEmployee } from '../../services/employee.service'
 
 function EmployeesGrid() {
 
@@ -21,11 +21,15 @@ function EmployeesGrid() {
     return employees.map((employee, idx) => <Employee
       key={"cpfkey" + employee.cpf}
       name={employee.name}
+      birth_date={employee.birth_date}
+      gender={employee.gender}
       email={employee.email}
+      cpf={employee.cpf}
       startDate={employee.start_date}
       team={employee.team}
       index={idx}
       deleteEmployee={onDeleteEmployee}
+      onUpdateEmployee={onUpdateEmployee}
     />)
   }
 
@@ -56,6 +60,27 @@ function EmployeesGrid() {
       fetchData();
     } else {
       alert(`Error: ${status === 404 ? 'Employee not found!' : 'Bad Request'}`);
+    }
+  }
+
+  const onUpdateEmployee = async (event, closeModal) => {
+    event.preventDefault(event);
+    var { name, birth_date, gender, email, cpf, start_date, team } = event.target;
+    const status = await updateEmployee({
+      name: name.value,
+      birth_date: birth_date.value,
+      gender: gender.value,
+      email: email.value,
+      cpf: cpf.value || undefined,
+      start_date: start_date.value ? start_date.value + '-01' : undefined,
+      team: team.value || undefined
+    });
+    if (status === 200) {
+      fetchData();
+      closeModal();
+    } else {
+      console.log(status)
+      alert(`Error: ${status === 404 ? 'Employee not found' : 'Please fill all fields'}`);
     }
   }
 

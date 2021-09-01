@@ -1,6 +1,7 @@
 import './Employee.css'
+import Container from '../AddButtonContainer';
 
-function Employee({ name, email, startDate, team, index, deleteEmployee }) {
+function Employee({ name, birth_date, gender, cpf, email, startDate, team, index, deleteEmployee, onUpdateEmployee }) {
 
   const formatDate = (date) => {
     const d = new Date(date);
@@ -17,10 +18,8 @@ function Employee({ name, email, startDate, team, index, deleteEmployee }) {
         {team ? <p>Team: {team}</p> : null}
       </div>
       <div className="employee-box-buttons">
-        <button className="edit-button">
-          Edit
-        </button>
-        <button className="delete-button" onClick={() => {deleteEmployee(index)}}>
+        <Container onSubmit={onUpdateEmployee} defaultValues={{ name, birth_date, gender, cpf, email, startDate, team }} />
+        <button className="delete-button" onClick={() => { deleteEmployee(index) }}>
           Delete
         </button>
       </div>

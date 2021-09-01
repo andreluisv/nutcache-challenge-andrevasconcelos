@@ -28,15 +28,21 @@ export class Container extends Component {
   render() {
     return (
       <React.Fragment>
-        <button className="add-employee-button" onClick={this.showModal}>+</button>
+        {
+          this.props.defaultValues ?
+            <button className="edit-button" onClick={this.showModal}>Edit</button>
+            :
+            <button className="add-employee-button" onClick={this.showModal}>+</button>
+        }
         {this.state.isShown ? (
           <Modal
-            onSubmit={(event)=>{this.props.onSubmit(event, this.closeModal)}}
+            onSubmit={(event) => { this.props.onSubmit(event, this.closeModal) }}
             modalRef={(n) => (this.modal = n)}
             buttonRef={(n) => (this.closeButton = n)}
             closeModal={this.closeModal}
             onKeyDown={this.onKeyDown}
             onClickOutside={this.onClickOutside}
+            defaultValues={this.props.defaultValues}
           />
         ) : null}
       </React.Fragment>
