@@ -27,7 +27,20 @@ const createNewEmployee = (req: Request, res: Response) => {
 }
 
 const deleteByCpf = (req: Request, res: Response) => {
-  return res.send('deleteByCpf')
+  var { cpf } = req.body;
+
+  const isComplete = cpf !== undefined;
+  if (!isComplete) {
+    return res.sendStatus(400)
+  }
+
+  const isSuccessful = deleteOne(cpf);
+
+  if (isSuccessful) {
+    return res.sendStatus(200)
+  }
+
+  return res.sendStatus(404)
 }
 
 const updateByCpf = (req: Request, res: Response) => {

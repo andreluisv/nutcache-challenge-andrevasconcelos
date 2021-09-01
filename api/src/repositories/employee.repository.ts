@@ -16,6 +16,15 @@ const exists = (cpf: String) => {
   return list.map((employee) => cpf === employee.cpf).includes(true);
 }
 
+const getEmployeeIndexByCpf = (cpf: String) => {
+  return list.findIndex((employee: Employee) => employee.cpf === cpf);
+}
+
+const removeIdxFromList = (idx: number) => {
+  if (idx < 0 || idx >= list.length) return false;
+  return list.splice(idx, 1).length === 1;
+}
+
 const insertOne = (employee: Employee) => {
   if (exists(employee.cpf)) {
     return false;
@@ -24,8 +33,9 @@ const insertOne = (employee: Employee) => {
   return true
 }
 
-const deleteOne = () => {
-
+const deleteOne = (cpf: String) => {
+  const index = getEmployeeIndexByCpf(cpf);
+  return removeIdxFromList(index);
 }
 
 const updateOne = () => {
